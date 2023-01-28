@@ -15,11 +15,19 @@ function App() {
 
   let [likeNumber, likeNumberTool] = useState(0);
 
+  function orderByDesc() {
+    let copy = [...title];
+    copy = copy.sort((a,b) => a.subject < b.subject ? 1 : -1);
+    titleTool(copy);
+  }
+
   return (
     <div className="App">
       <div className='black-nav'>
         <div>Coblog</div>
       </div>
+
+      <button onClick={ orderByDesc }>내림차순 정렬하기</button>
 
       <div className='list'>        
         <h3> { title[0]["subject"] } <span onClick={ ()=>{likeNumberTool(likeNumber++);} }>👍</span> {likeNumber} </h3>
