@@ -5,63 +5,116 @@ import React, { useState } from 'react';
 
 function App() {
 
-  let [title, titleTool] = useState(
+  //////////////////////////////////////////////////////////////////
+  /**
+   * state
+   */
+  let [boardList, setBoardList] = useState(
     [
-      {"subject": "벽돌1", "date": "2023-01-25"},
-      {"subject": "벽돌2", "date": "2023-01-26"},
-      {"subject": "벽돌3", "date": "2023-01-27"},
+      {"subject": "게시글1", "date": "2023-01-25", "like": 0},
+      {"subject": "게시글2", "date": "2023-01-26", "like": 0},
+      {"subject": "게시글3", "date": "2023-01-27", "like": 0},
     ]
   );
 
-  let [likeNumber, likeNumberTool] = useState(0);
+  let [modalState, setModalState] = useState(false);
+  let [inputValue, setInputValue] = useState('');
 
+  //////////////////////////////////////////////////////////////////
+  /**
+   * function
+   */
   function orderByDesc() {
-    let copy = [...title];
+    let copy = [...boardList];
     copy = copy.sort((a,b) => a.subject < b.subject ? 1 : -1);
-    titleTool(copy);
+    setBoardList(copy);
   }
 
+  function increaseLike(index) {
+    let copy = [...boardList];
+    copy[index]["like"] += 1;
+    setBoardList(copy);
+  }
+
+  function showModal(index) {
+    setModalState(!modalState);
+  }
+
+  function updateBoard() {
+    let copy = [...boardList];
+    copy[0]["subject"] = "야호";
+    setBoardList(copy);
+  }
+
+  function deleteBoard(index) {
+    let copy = [...boardList];
+    delete copy[index];
+    
+    console.log(copy);
+  }
+
+  function addBoard() {
+
+  }
+
+  //////////////////////////////////////////////////////////////////
+  /**
+   * return
+   */
   return (
     <div className="App">
       <div className='black-nav'>
         <div>Coblog</div>
       </div>
 
-      <button onClick={ orderByDesc }>내림차순 정렬하기</button>
+      <button onClick={orderByDesc}>내림차순으로 보기</button>
 
-      <div className='list'>        
-        <h3> { title[0]["subject"] } <span onClick={ ()=>{likeNumberTool(likeNumber++);} }>👍</span> {likeNumber} </h3>
-        <p>{ title[0]["date"] } </p>
-        <hr/>
-      </div>
+      {
+        boardList.map( (board, i)=>{
+          return (
+            <div className='list' key={i}>
+              <h3> 
+                { board["subject"] } 
+                <span onClick={()=>increaseLike(i)}> | 👍{board["like"]} | </span>
+                { board["date"] }
+              </h3>
+              <button onClick={()=>showModal(i)}>보기 / 숨기기</button>
+              <button onClick={()=>deleteBoard(i)}>삭제하기</button>
+              { modalState ? <Modal board={board} color="skyblue" updateBoard={updateBoard} /> : null }
+              <hr/>
+            </div>
+          )
+        } )
+      }
 
-      <div className='list'>        
-        <h3> { title[1]["subject"] }</h3>
-        <p>{ title[1]["date"] } </p>
-        <hr/>
-      </div>
+      <input onChange={(e)=>{
+        setInputValue(e.target.value);
+        console.log({inputValue});
+      }} />
 
-      <div className='list'>        
-        <h3> { title[2]["subject"] }</h3>
-        <p>{ title[2]["date"] } </p>
-        <hr/>
-      </div>
-
-      <Modal/>
-      
     </div>
   );
 }
 
-function Modal() {
+//////////////////////////////////////////////////////////////////
+/**
+ * Modal
+ */
+function Modal(props) {
+  let board = props["board"];
+  let updateBoard = props["updateBoard"];
+
   return (
-  <div className='modal'>
-    <h2>제목</h2>
-    <p>날짜</p>
+  <div className='modal' style={{background: props.color}}>
+    <h2>{board["subject"]}</h2>
+    <p>{board["date"]}</p>
     <p>내용</p>
+    <button onClick={updateBoard}>수정하기</button>
   </div>
   )
-
 }
 
+
+
 export default App;
+
