@@ -11,9 +11,9 @@ function App() {
    */
   let [boardList, setBoardList] = useState(
     [
-      {"subject": "게시글1", "date": "2023-01-25", "like": 0},
-      {"subject": "게시글2", "date": "2023-01-26", "like": 0},
-      {"subject": "게시글3", "date": "2023-01-27", "like": 0},
+      {"id": 0, "subject": "게시글1", "date": "2023-01-25", "like": 0},
+      {"id": 1, "subject": "게시글2", "date": "2023-01-26", "like": 0},
+      {"id": 2, "subject": "게시글3", "date": "2023-01-27", "like": 0},
     ]
   );
 
@@ -30,13 +30,17 @@ function App() {
     setBoardList(copy);
   }
 
-  function increaseLike(index) {
+  function increaseLike(id) {
     let copy = [...boardList];
-    copy[index]["like"] += 1;
-    setBoardList(copy);
+    copy.map((board, i)=>{ 
+      if(board["id"] == id) {
+        board["like"] += 1;
+        setBoardList(copy);
+      }
+    });
   }
 
-  function showModal(index) {
+  function showModal() {
     setModalState(!modalState);
   }
 
@@ -46,12 +50,17 @@ function App() {
     setBoardList(copy);
   }
 
-  function deleteBoard(index) {
+  function deleteBoard(id) {
     let copy = [...boardList];
-    delete copy[index];
-    setBoardList(copy);
+    for(let i = 0; i < copy.length; i++) {
+      if(copy[i]["id"] == id) {
+        delete copy[i];
+        setBoardList(copy);
+        break;
+      }
+    }
   }
-
+ 
   function addBoard() {
     let board = {
       "subject": inputValue,
@@ -82,11 +91,11 @@ function App() {
             <div className='list' key={i}>
               <h3> 
                 { board["subject"] } 
-                <span onClick={()=>increaseLike(i)}> | 👍{board["like"]} | </span>
+                <span onClick={()=>increaseLike(board["id"])}> | 👍{board["like"]} | </span>
                 { board["date"] }
               </h3>
-              <button onClick={()=>showModal(i)}>보기 / 숨기기</button>
-              <button onClick={()=>deleteBoard(i)}>삭제하기</button>
+              <button onClick={()=>showModal(board["id"])}>보기 / 숨기기</button>
+              <button onClick={()=>deleteBoard(board["id"])}>삭제하기</button>
               { modalState ? <Modal board={board} color="skyblue" updateBoard={updateBoard} /> : null }
               <hr/>
             </div>
