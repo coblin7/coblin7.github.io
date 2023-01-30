@@ -49,12 +49,19 @@ function App() {
   function deleteBoard(index) {
     let copy = [...boardList];
     delete copy[index];
-    
-    console.log(copy);
+    setBoardList(copy);
   }
 
   function addBoard() {
+    let board = {
+      "subject": inputValue,
+      "date": "2023-01-30",
+      "like": 0
+    };
 
+    let copy = [...boardList];
+    copy.push(board);
+    setBoardList(copy);
   }
 
   //////////////////////////////////////////////////////////////////
@@ -87,10 +94,8 @@ function App() {
         } )
       }
 
-      <input onChange={(e)=>{
-        setInputValue(e.target.value);
-        console.log({inputValue});
-      }} />
+      <input onChange={(e)=>{ setInputValue(e.target.value); }} />
+      <button onClick={ addBoard }>저장하기</button>
 
     </div>
   );
