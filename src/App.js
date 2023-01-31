@@ -52,13 +52,11 @@ function App() {
 
   function deleteBoard(id) {
     let copy = [...boardList];
-    for(let i = 0; i < copy.length; i++) {
-      if(copy[i]["id"] == id) {
-        delete copy[i];
-        setBoardList(copy);
-        break;
-      }
-    }
+    let filterArr = copy.filter((board)=>{
+      return board["id"] != id;
+    })
+    console.log(filterArr);
+    setBoardList(filterArr);
   }
  
   function addBoard() {
