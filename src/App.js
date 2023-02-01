@@ -50,13 +50,16 @@ function App() {
     setBoardList(copy);
   }
 
-  function deleteBoard(id) {
+  function deleteBoard(id, i) {
     let copy = [...boardList];
-    let filterArr = copy.filter((board)=>{
-      return board["id"] != id;
-    })
-    console.log(filterArr);
-    setBoardList(filterArr);
+    // let filterArr = copy.filter((board)=>{
+    //   return board["id"] != id;
+    // });
+
+    copy.splice(i, 1);
+    setBoardList(copy);
+    // console.log(filterArr);
+    // setBoardList(filterArr);
   }
  
   function addBoard() {
@@ -93,7 +96,7 @@ function App() {
                 { board["date"] }
               </h3>
               <button onClick={()=>showModal(board["id"])}>보기 / 숨기기</button>
-              <button onClick={()=>deleteBoard(board["id"])}>삭제하기</button>
+              <button onClick={()=>deleteBoard(board["id"], i)}>삭제하기</button>
               { modalState ? <Modal board={board} color="skyblue" updateBoard={updateBoard} /> : null }
               <hr/>
             </div>
