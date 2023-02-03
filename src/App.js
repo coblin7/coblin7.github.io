@@ -36,9 +36,6 @@ function App() {
           <div className='col-md-4'>Hello</div>
         </div>
       </div>
-
-      
-
     </div>
   );
 }
