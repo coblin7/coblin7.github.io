@@ -25,6 +25,20 @@ function App() {
         </Container>
       </Navbar>
       <br />
+
+      <div className='container'>
+        <div className='row'>
+          <div className='col-md-4'>
+            Hello
+            <div className='main-bg' />
+          </div>
+          <div className='col-md-4'>Hello</div>
+          <div className='col-md-4'>Hello</div>
+        </div>
+      </div>
+
+      
+
     </div>
   );
 }
