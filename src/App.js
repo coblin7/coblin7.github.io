@@ -6,8 +6,6 @@ import { Button, Navbar, Container, Nav } from 'react-bootstrap';
 
 function App() {
 
- 
-
   ///////////////////////////////////////
   /**
    * return
