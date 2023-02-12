@@ -3,8 +3,11 @@ import logo from './logo.svg';
 import './App.css';
 import React, { useState } from 'react';
 import { Button, Navbar, Container, Nav } from 'react-bootstrap';
+import planetList from './page/planet.js';
 
 function App() {
+
+  console.log(planetList);
 
   ///////////////////////////////////////
   /**
@@ -14,7 +17,7 @@ function App() {
     <div className="App">
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Navbar.Brand href="#home">Space Store</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#features">Features</Nav.Link>
