@@ -7,8 +7,6 @@ import planetList from './page/planet.js';
 
 function App() {
 
-  console.log(planetList);
-
   ///////////////////////////////////////
   /**
    * return
@@ -27,15 +25,17 @@ function App() {
       </Navbar>
       <br />
 
-      <div className='container'>
-        <div className='main-bg' />
-      </div>
+      <div className='main-bg' />
 
       <div className='container'>
         <div className='row'>
-          <div className='col-md-4'>Box</div>
-          <div className='col-md-4'>Box</div>
-          <div className='col-md-4'>Box</div>
+          {
+            planetList.map( (planet, i)=>{
+              return (
+                <div className='col-md-4' key={i}><Planet planet={planet} /></div>
+              )
+            })
+          }
         </div>
       </div>
     </div>
@@ -43,7 +43,26 @@ function App() {
 }
 
 
-// test
+///////////////////////////////////////
+/**
+ * component
+ */
+function Planet(props) {
+  let planet = props["planet"];
+  return (
+    <>
+    <div className='container'>
+      <div className='row'>
+        <div className='col-md-4 content'>
+          <img src={planet["img"]} width="80%" />
+          <h4>{planet["title"]}</h4>
+          <p>{planet["price"]}</p>
+        </div>
+      </div>
+    </div>
+    </>
+  )
+}
 
 
 export default App;
