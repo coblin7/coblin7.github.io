@@ -81,3 +81,8 @@ body {
   margin-top: 20px;
   color: whitesmoke;
 }
+
+.content p {
+  font-size: 10px;
+  color: whitesmoke;
+}

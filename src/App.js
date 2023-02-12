@@ -55,7 +55,7 @@ function Planet(props) {
       <div className='row'>
         <div className='col-md-4 content'>
           <img src={planet["img"]} width="80%" />
-          <h4>{planet["title"]}</h4>
+          <h3><b>{planet["title"]}</b></h3>
           <p>{planet["price"]}</p>
         </div>
       </div>
